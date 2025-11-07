@@ -27,7 +27,7 @@ export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const product = urlParams.get(param);
-  return product;
+  return product
 }
 
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
@@ -35,5 +35,5 @@ export function renderListWithTemplate(template, parentElement, list, position =
   if (clear) {
     parentElement.innerHTML = "";
   }
-  parentElement.inserAdjacentHTML(position, html.join(""));
+  parentElement.insertAdjacentHTML(position, html.join(""));
 }

@@ -31,11 +31,11 @@ export default class ProductDetails {
 
   // update product data
   renderProductDetails() {
-    ProductDetailsContainer(this.product);
+    ProductDetailsTemplate(this.product);
   }
 }
 
-function ProductDetailsContainer(product) { // replace data in the product_pages/index.html
+function ProductDetailsTemplate(product) { // replace data in the product_pages/index.html
   document.querySelector("h2").textContent = product.Brand.Name; // replace the h2 with the Brand Name
   document.querySelector("h3").textContent = product.NameWithoutBrand; // replace the h3 with the Name
 

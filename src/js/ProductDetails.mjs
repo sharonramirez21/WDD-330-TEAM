@@ -47,5 +47,5 @@ function ProductDetailsContainer(product) { // replace data in the product_pages
   document.querySelector(".product__color").textContent = product.Colors[0].ColorName; // replace the color section p with the first color of the product and with the name
   document.querySelector(".product__description").innerHTML = product.DescriptionHtmlSimple; // replace the description with inner to extract the apostrophes from the JSON file
 
-  document.getElementById("addToCart").dataset.id = product.id; // Add the product to the cart with the id
+  document.getElementById("addToCart").dataset.id = product.Id; // Add the product to the cart with the id
 }

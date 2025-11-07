@@ -1,17 +1,17 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
-// import getParam
+// import everything we need
 import { getParam } from "./utils.mjs";
+import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 // data source for products from Product Data
 const dataSource = new ProductData("tents");
 
 // get the product id's by the url
-const productID = getParam("product");
+const productId = getParam("product");
 
 // product Details - this is the instance
-const product = new ProductDetails(productID, dataSource);
+const product = new ProductDetails(productId, dataSource);
+
 // ejecute init()
 product.init();
 

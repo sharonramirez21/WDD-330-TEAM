@@ -7,7 +7,7 @@
 
     <title>Sleep Outside | North Face Alpine Guide 3-person tent</title>
 
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css" />
     <script type="module" src="../js/product.js"></script>
   </head>
 
@@ -52,7 +52,6 @@
       </div>
     </header>
 
-
     <main class="divider">
       <section class="product-detail">
         <h2>Brand Name</h2>
@@ -69,6 +68,62 @@
         <div class="product-detail__add">
           <button id="addToCart" data-id="productId">Add to Cart</button>
         </div>
+      </section>
+      <aside
+        class="viewport-info"
+        data-viewport-info
+        aria-live="polite"
+      >
+        Checking viewport size…
+      </aside>
+
+      <section class="countdown">
+        <h2>Countdown Timer</h2>
+        <p>
+          Choose a starting time (in seconds), then start the timer to see how
+          <code>setInterval</code> and <code>setTimeout</code> work together.
+        </p>
+        <label class="countdown__input">
+          Starting seconds
+          <input
+            type="number"
+            id="countdownInput"
+            min="1"
+            max="600"
+            value="10"
+          />
+        </label>
+        <div class="countdown__controls">
+          <button type="button" id="startButton">Start</button>
+          <button type="button" id="pauseButton" disabled>Pause</button>
+        </div>
+        <h1 id="countdown" aria-live="polite">Ready?</h1>
+      </section>
+
+      <section class="template-demo">
+        <h2>Template Product Gallery</h2>
+        <p>
+          Templates let us prepare markup in advance and only render it when
+          requested. Click the button to clone a template of gear cards.
+        </p>
+        <button type="button" id="renderProducts">Show Featured Gear</button>
+        <div
+          id="productList"
+          class="template-demo__list"
+          aria-live="polite"
+          aria-busy="false"
+        ></div>
+
+        <template id="productCardTemplate">
+          <article class="template-card">
+            <img src="" alt="" width="200" height="140" loading="lazy" />
+            <div class="template-card__body">
+              <h3></h3>
+              <p class="template-card__desc"></p>
+              <p class="template-card__price"></p>
+            </div>
+          </article>
+        </template>
       </section>
     </main>
 

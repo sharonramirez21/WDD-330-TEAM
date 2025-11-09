@@ -199,6 +199,110 @@ button {
   margin: auto;
 }
 
+.viewport-info {
+  margin: 1.5rem auto 0;
+  max-width: 500px;
+  padding: 1rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: rgba(240, 168, 104, 0.1);
+  font-size: var(--small-font);
+}
+
+.countdown {
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 1.5rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.75rem;
+  text-align: center;
+  background-color: rgba(82, 91, 15, 0.08);
+}
+
+.countdown h1 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+.countdown__input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+#countdownInput {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.4rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.countdown__controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.countdown__controls button {
+  flex: 1 1 50%;
+}
+
+.template-demo {
+  margin: 2rem auto;
+  max-width: 700px;
+  padding: 1.5rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.75rem;
+  background-color: rgba(138, 71, 12, 0.08);
+}
+
+.template-demo__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.template-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 0.75rem;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.template-card img {
+  border-radius: 0.5rem;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.template-card__body h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.template-card__desc {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.template-card__price {
+  margin: 0;
+  font-weight: 700;
+}
+
 .product-detail img {
   width: 100%;
 }
@@ -261,7 +365,6 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
-
 
 /*delete item from the cart*/
 .delete-btn {

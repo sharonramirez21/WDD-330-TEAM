@@ -203,6 +203,16 @@ button {
   width: 100%;
 }
 
+.product-detail__message {
+  margin: 0.75em 0;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.product-detail--error .product-detail__message {
+  color: #b00020;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
@@ -210,6 +220,12 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+}
+
+.cart-card--empty {
+  display: block;
+  text-align: center;
+  font-weight: 600;
 }
 
 .cart-card__image {

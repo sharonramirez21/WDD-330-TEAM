@@ -1,5 +1,9 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 import { notifyCartCountChange } from "./cartCount.js";
+
+// team activity -- part 11
+loadHeaderFooter();
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",

@@ -1,4 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { notifyCartCountChange } from "./cartCount.js";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -8,6 +9,8 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const listElement = document.querySelector(".product-list");
+
+  notifyCartCountChange();
 
   if (!listElement) return;
 
@@ -50,7 +53,6 @@ function cartItemTemplate(item) {
 
   return newItem;
 }
-
 
 // remove item from the cart
 function removeItemFromCart(productId) {

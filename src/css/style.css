@@ -131,6 +131,25 @@ button {
   fill: gray;
 }
 
+.cart-count {
+  position: absolute;
+  top: 0.1rem;
+  right: 0.1rem;
+  min-width: 1.3rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background-color: var(--tertiary-color);
+  color: white;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  font-weight: 700;
+  text-align: center;
+}
+
+.cart-count[hidden] {
+  display: none;
+}
+
 /* End cart icon styles */
 
 .mission {
@@ -277,7 +296,6 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
-
 
 /*delete item from the cart*/
 .delete-btn {

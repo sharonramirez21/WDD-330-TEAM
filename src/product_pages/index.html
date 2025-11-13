@@ -7,7 +7,7 @@
 
     <title>Sleep Outside | North Face Alpine Guide 3-person tent</title>
 
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css" />
     <script type="module" src="../js/product.js"></script>
   </head>
 
@@ -49,14 +49,21 @@
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
         </a>
+        <span
+          class="cart-count"
+          data-cart-count
+          hidden
+          aria-live="polite"
+          aria-label="Items in cart"
+          >0</span
+        >
       </div>
     </header>
 
-
     <main class="divider">
       <section class="product-detail">
-        <h2>Brand Name</h2>
-        <h3 class="divider">Product</h3>
+        <h2 id="productBrand">Brand Name</h2>
+        <h3 id="productName" class="divider">Product</h3>
         <img
           src="/images/camping-products.jpg"
           alt="Sleep Outside Camping Products"
@@ -66,6 +73,12 @@
         <p id="productPrice" class="product-card__price">$000.99</p>
         <p id="productColor" class="product__color">Color</p>
         <p id="productDesc" class="product__description">Description</p>
+        <p
+          id="productMessage"
+          class="product-detail__message"
+          hidden
+          aria-live="polite"
+        ></p>
         <div class="product-detail__add">
           <button id="addToCart" data-id="productId">Add to Cart</button>
         </div>

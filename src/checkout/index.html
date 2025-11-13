@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/style.css" />
     
     <script src="../js/checkout.js" defer></script>
+
+    <!--I moved the script to this part :) -->
+    <script type="module" src="/js/cartCount.js" defer></script>
   </head>
 
   <body>
@@ -55,6 +58,14 @@
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
         </a>
+        <span
+          class="cart-count"
+          data-cart-count
+          hidden
+          aria-live="polite"
+          aria-label="Items in cart"
+          >0</span
+        >
       </div>
     </header>
 

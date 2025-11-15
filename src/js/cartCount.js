@@ -54,3 +54,8 @@ export function notifyCartCountChange() {
 }
 
 initCartCountBadge();
+
+// wait the header :) 
+document.addEventListener("headerLoaded", () => {
+  updateCartCountBadge();
+});

@@ -39,10 +39,11 @@ function renderCartContents() {
 function cartItemTemplate(item) {
   const productLink = `../product_pages/?product=${item.Id}`;
   const colorName = item.Colors?.[0]?.ColorName ?? "";
+  const imageSrc = item.Images?.PrimaryMedium ?? ""; // for the Api IMAGE
   const newItem = `<li class="cart-card divider">
   <a href="${productLink}" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${imageSrc}"
       alt="${item.Name}"
     />
   </a>
@@ -50,9 +51,9 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${colorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
   <p class="cart-card__price">${currencyFormatter.format(item.FinalPrice)}</p>
-  <button class="delete-btn" data-id="${item.Id}">❌ Eliminar</button>
+  <button class="delete-btn" data-id="${item.Id}">❌ Delete</button>
 </li>`;
 
   return newItem;
@@ -61,8 +62,18 @@ function cartItemTemplate(item) {
 // remove item from the cart
 function removeItemFromCart(productId) {
   let cartItems = getLocalStorage("so-cart") || [];
-  cartItems = cartItems.filter((item) => item.Id !== productId);
+  const item = cartItems.find(i => i.Id === productId);
+  if (!item) return;
+  
+  // if we have more than 1 item with the same id in the cart
+  if (item.quantity && item.quantity > 1) {
+    item.quantity -= 1;
+  }
+  else {
+    cartItems = cartItems.filter(i => i.Id !== productId);
+  }
   setLocalStorage("so-cart", cartItems);
+  notifyCartCountChange();
   renderCartContents();
 }
 
@@ -72,10 +83,13 @@ function updateTotal(total) {
   totalElement.textContent = `Total: ${currencyFormatter.format(total)}`;
 }
 
-// show the total
+// show the total 
 function showTotal() {
   const cartItems = getLocalStorage("so-cart") || [];
-  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+  const total = cartItems.reduce((sum, item) => {
+    const qty = item.quantity || 1;
+    return sum + (item.FinalPrice * qty);
+  }, 0);
   updateTotal(total);
 }
 

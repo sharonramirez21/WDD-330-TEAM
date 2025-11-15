@@ -42,7 +42,17 @@ export default class ProductDetails {
   addProductToCart() {
     if (!this.product) return;
     const cart = getLocalStorage("so-cart") || [];
-    cart.push(this.product);
+
+    // if the product exist 
+    const existing = cart.find(item => item.Id == this.product.Id);
+
+    if (existing) {
+      existing.quantity = (existing.quantity || 1 ) + 1;
+    }
+    else {
+      this.product.quantity = 1;
+      cart.push(this.product);
+    }
     setLocalStorage("so-cart", cart);
     notifyCartCountChange();
     this.setMessage(`${this.product.NameWithoutBrand} added to cart.`);
@@ -54,7 +64,7 @@ export default class ProductDetails {
     const {
       Brand: { Name: brandName } = {},
       NameWithoutBrand,
-      Image,
+      Images = {},
       FinalPrice,
       Colors = [],
       DescriptionHtmlSimple,
@@ -73,8 +83,8 @@ export default class ProductDetails {
 
     const productImage = document.getElementById("productImage");
     if (productImage) {
-      productImage.src = Image;
-      productImage.alt = NameWithoutBrand;
+      productImage.src = Images.PrimaryLarge ?? ""; // for the API
+      productImage.alt = NameWithoutBrand ?? "Product image";
     }
 
     const priceElement = document.getElementById("productPrice");

@@ -48,7 +48,7 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 // activity 8
 export async function loadTemplate(path) {
-  const response = fetch(path);
+  const response = await fetch(path);
   const template = await response.text();
   return template;
 }
@@ -61,4 +61,6 @@ export async function loadHeaderFooter() {
   const footerTem = await loadTemplate(`../partials/footer.html`);
   const footerElem = document.querySelector("#footer");
   renderWithTemplate(footerTem, footerElem);
+
+  document.dispatchEvent(new Event("headerLoaded"));
 }

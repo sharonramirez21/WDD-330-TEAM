@@ -1,13 +1,12 @@
 // import everything we need
-import { getParam } from "./utils.mjs";
+import { getParam , loadHeaderFooter } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
 
 loadHeaderFooter();
 
 // data source for products from Product Data
-const dataSource = new ProductData("tents");
+const dataSource = new ProductData();
 
 // get the product id's by the url
 const productId = getParam("product");

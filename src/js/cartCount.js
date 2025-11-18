@@ -1,15 +1,9 @@
-import { getLocalStorage } from "./utils.mjs";
+import { CART_KEY, getCartCount as getStoredCartCount } from "./cartStorage.mjs";
 
-const CART_KEY = "so-cart";
 const BADGE_SELECTOR = "[data-cart-count]";
 
-function getCartItems() {
-  const cart = getLocalStorage(CART_KEY);
-  return Array.isArray(cart) ? cart : [];
-}
-
 export function getCartCount() {
-  return getCartItems().length;
+  return getStoredCartCount();
 }
 
 export function updateCartCountBadge(count = getCartCount()) {

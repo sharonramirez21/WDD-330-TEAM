@@ -1,5 +1,5 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { notifyCartCountChange } from "./cartCount.js";
+import { incrementCartItem } from "./cartStorage.mjs";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -41,9 +41,7 @@ export default class ProductDetails {
 
   addProductToCart() {
     if (!this.product) return;
-    const cart = getLocalStorage("so-cart") || [];
-    cart.push(this.product);
-    setLocalStorage("so-cart", cart);
+    incrementCartItem(this.product);
     notifyCartCountChange();
     this.setMessage(`${this.product.NameWithoutBrand} added to cart.`);
   }

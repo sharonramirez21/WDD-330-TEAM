@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getCartItems, removeCartItem as removeCartItemFromStorage, updateCartItemQuantity } from "./cartStorage.mjs";
 import { notifyCartCountChange } from "./cartCount.js";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -7,7 +7,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItems = getCartItems();
   const listElement = document.querySelector(".product-list");
 
   notifyCartCountChange();
@@ -24,12 +24,19 @@ function renderCartContents() {
   listElement.innerHTML = htmlItems.join("");
 
   document.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      removeItemFromCart(e.target.dataset.id);
+    btn.addEventListener("click", (event) => {
+      const productId = event.currentTarget.dataset.id;
+      if (productId) {
+        removeItemFromCart(productId);
+      }
     });
   });
 
-  showTotal();
+  document.querySelectorAll(".cart-quantity-input").forEach((input) => {
+    input.addEventListener("change", handleQuantityChange);
+  });
+
+  showTotal(cartItems);
 }
 
 function cartItemTemplate(item) {
@@ -46,8 +53,22 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${colorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <label class="cart-card__quantity">
+    <span class="cart-card__quantity-label">Qty:</span>
+    <input
+      type="number"
+      min="1"
+      step="1"
+      value="${item.quantity ?? 1}"
+      data-id="${item.Id}"
+      class="cart-quantity-input"
+      aria-label="Quantity for ${item.Name}"
+    />
+  </label>
   <p class="cart-card__price">${currencyFormatter.format(item.FinalPrice)}</p>
+  <p class="cart-card__price cart-card__price-total">Total: ${currencyFormatter.format(
+    item.FinalPrice * (item.quantity ?? 1),
+  )}</p>
   <button class="delete-btn" data-id="${item.Id}">❌ Eliminar</button>
 </li>`;
 
@@ -56,9 +77,21 @@ function cartItemTemplate(item) {
 
 // remove item from the cart
 function removeItemFromCart(productId) {
-  let cartItems = getLocalStorage("so-cart") || [];
-  cartItems = cartItems.filter((item) => item.Id !== productId);
-  setLocalStorage("so-cart", cartItems);
+  removeCartItemFromStorage(productId);
+  renderCartContents();
+}
+
+function handleQuantityChange(event) {
+  const input = event.currentTarget;
+  const productId = input.dataset.id;
+  if (!productId) return;
+
+  let newQuantity = Number.parseInt(input.value, 10);
+  if (Number.isNaN(newQuantity) || newQuantity < 1) {
+    newQuantity = 1;
+  }
+
+  updateCartItemQuantity(productId, newQuantity);
   renderCartContents();
 }
 
@@ -69,9 +102,11 @@ function updateTotal(total) {
 }
 
 // show the total
-function showTotal() {
-  const cartItems = getLocalStorage("so-cart") || [];
-  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+function showTotal(cartItems = getCartItems()) {
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.FinalPrice * (item.quantity ?? 1),
+    0,
+  );
   updateTotal(total);
 }
 

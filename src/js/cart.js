@@ -40,6 +40,8 @@ function cartItemTemplate(item) {
   const productLink = `../product_pages/?product=${item.Id}`;
   const colorName = item.Colors?.[0]?.ColorName ?? "";
   const imageSrc = item.Images?.PrimaryMedium ?? ""; // for the Api IMAGE
+  const qty = item.quantity || 1;
+  const itemTotal = item.FinalPrice * qty; // item subtotal
   const newItem = `<li class="cart-card divider">
   <a href="${productLink}" class="cart-card__image">
     <img
@@ -52,10 +54,9 @@ function cartItemTemplate(item) {
   </a>
   <p class="cart-card__color">${colorName}</p>
   <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
-  <p class="cart-card__price">${currencyFormatter.format(item.FinalPrice)}</p>
+  <p class="cart-card__price">${currencyFormatter.format(itemTotal)}</p>
   <button class="delete-btn" data-id="${item.Id}">❌ Delete</button>
-</li>`;
-
+  </li>`;
   return newItem;
 }
 
@@ -94,3 +95,8 @@ function showTotal() {
 }
 
 renderCartContents();
+
+// when the user clicck the btn
+document.querySelector("#checkoutBtn").addEventListener("click", () => {
+  window.location.href = "/checkout/index.html";
+});

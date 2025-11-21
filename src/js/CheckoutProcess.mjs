@@ -79,28 +79,42 @@ export default class CheckoutProcess{
         return data;
     }
 
-    async checkout(form) {
-        event.preventDefault()
-        // data from the form
-        const data = this.formDataToJSON(form);
+    async checkout(event, form) {
+        try {
+            event.preventDefault();
+            // data from the form
+            const data = this.formDataToJSON(form);
 
-        // the server expects:
-        const order = {
-            orderDate: new Date().toISOString(),
-            fname: data.firstName,
-            lname: data.lastName,
-            street: data.streetAddress,
-            city: data.city,
-            state: data.state,
-            zip: data.zipCode,
-            cardNumber: data.cardNumber,
-            expiration: data.expiration,
-            code: data.secCode,
-            items: this.packageItems(this.list), //items in the cart
-            orderTotal: this.orderTotal.toFixed(2),
-            shipping: this.shipping,
-            tax: this.tax.toFixed(2)
-        };
+            // the server expects:
+            const order = {
+                orderDate: new Date().toISOString(),
+                fname: data.firstName,
+                lname: data.lastName,
+                street: data.streetAddress,
+                city: data.city,
+                state: data.state,
+                zip: data.zipCode,
+                cardNumber: data.cardNumber,
+                expiration: data.expiration,
+                code: data.secCode,
+                items: this.packageItems(this.list), //items in the cart
+                orderTotal: this.orderTotal.toFixed(2),
+                shipping: this.shipping,
+                tax: this.tax.toFixed(2)
+            };
+
+            console.log("Order created:", order);
+
+            this.clearCart();
+            window.location.href = "../checkout/success.html";
+
+        } catch(error) {
+            console.error("Error in checkout:", error);
+            const errorsElement = document.querySelector('#checkoutError');
+            if (errorsElement) {
+                errorsElement.innerHTML = `<p class="error">There was a problem: ${JSON.stringify(error.message)}</p>`;
+            }
+        }
 
         // fetch POST
         const options = {

@@ -1,5 +1,7 @@
 import { notifyCartCountChange } from "./cartCount.js";
 import { incrementCartItem } from "./cartStorage.mjs";
+import { addToWishlist } from "./wishlistStorage.mjs";
+
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -37,6 +39,17 @@ export default class ProductDetails {
     if (addButton) {
       addButton.addEventListener("click", this.addProductToCart.bind(this));
     }
+
+    const wishlistBtn = document.getElementById("addToWishlistBtn");
+    if (wishlistBtn) {
+      wishlistBtn.addEventListener("click", this.addProductToWishlist.bind(this));
+    }
+  }
+
+  addProductToWishlist() {
+    if (!this.product) return;
+    addToWishlist(this.product);
+    this.setMessage(`${this.product.NameWithoutBrand} added to wishlist.`);
   }
 
   addProductToCart() {
@@ -45,6 +58,8 @@ export default class ProductDetails {
     notifyCartCountChange();
     this.setMessage(`${this.product.NameWithoutBrand} added to cart.`);
   }
+
+  
 
   renderProductDetails() {
     document.querySelector(".product-detail")?.classList.remove("product-detail--error");
@@ -94,6 +109,12 @@ export default class ProductDetails {
     if (addButton) {
       addButton.dataset.id = Id;
       addButton.disabled = false;
+    }
+
+    const wishlistBtn = document.getElementById("addToWishlistBtn");
+    if (wishlistBtn) {
+      wishlistBtn.dataset.id = this.product.Id;
+      wishlistBtn.disabled = false;
     }
 
     this.setMessage("");

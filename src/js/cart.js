@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import { getCartItems, removeCartItem as removeCartItemFromStorage, updateCartItemQuantity } from "./cartStorage.mjs";
+import { getCartItems, removeCartItem as removeCartItemFromStorage, updateCartItemQuantity , saveCartItems} from "./cartStorage.mjs";
 import { notifyCartCountChange } from "./cartCount.js";
 
 // team activity -- part 11
@@ -36,6 +36,13 @@ function renderCartContents() {
     });
   });
 
+  document.querySelectorAll(".qty-decrease").forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const productId = event.currentTarget.dataset.id;
+      decreaseOne(productId);
+    });
+  });
+
   document.querySelectorAll(".cart-quantity-input").forEach((input) => {
     input.addEventListener("change", handleQuantityChange);
   });
@@ -60,7 +67,10 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${colorName}</p>
-    <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
+    <p class="cart-card__quantity">
+      qty: ${item.quantity || 1}
+      <button class="qty-decrease" data-id="${item.Id}">➖</button>
+    </p>
     <p class="cart-card__price">${currencyFormatter.format(itemTotal)}</p>
     <button class="delete-btn" data-id="${item.Id}">❌ Delete</button>
   </li>`;
@@ -70,6 +80,7 @@ function cartItemTemplate(item) {
 // remove item from the cart
 function removeItemFromCart(productId) {
   removeCartItemFromStorage(productId);
+  notifyCartCountChange();
   renderCartContents();
 }
 
@@ -108,3 +119,21 @@ renderCartContents();
 document.querySelector("#checkoutBtn").addEventListener("click", () => {
   window.location.href = "/checkout/index.html";
 });
+
+// we delete 1 item from the cart
+function decreaseOne(productId) {
+  const cart = getCartItems();
+  const item = cart.find((i) => i.Id == productId);
+
+  if (!item) return;
+
+  if (item.quantity > 1) {
+    item.quantity -= 1;
+    saveCartItems(cart);
+  } else {
+    removeCartItemFromStorage(productId);
+  }
+
+  notifyCartCountChange();
+  renderCartContents();
+}

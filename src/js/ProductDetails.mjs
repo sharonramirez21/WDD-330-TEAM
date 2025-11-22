@@ -50,9 +50,11 @@ export default class ProductDetails {
     if (!this.product) return;
     const productForWishlist = {
       Id: this.product.Id,
-      Name: this.product.NameWithoutBrand,
-      FinalPrice: this.product.FinalPrice,
-      Images: { PrimaryMedium: this.product.Images.PrimaryLarge },
+      Name: this.product.NameWithoutBrand ?? "No name",
+      FinalPrice: this.product.FinalPrice ?? 0,
+      Images: { 
+        PrimaryMedium: this.product.Images?.PrimaryLarge ?? "img/placeholder.png" 
+      },
       quantity: 1
     };
     addToWishlist(productForWishlist);

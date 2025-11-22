@@ -14,10 +14,11 @@ function renderWishlist() {
   }
 
   container.innerHTML = items.map(item => {
+       qty = item.quantity || 1; 
       return `
         <div class="wishlist-item" data-id="${item.Id}">
           <img src="${item.Images?.PrimaryMedium ?? ''}" alt="${item.Name}">
-          <p>${item.Name} (x${quantity || 1}) - $${(item.FinalPrice * qty).toFixed(2)}</p>
+          <p>${item.Name} (x${qty}) - $${(item.FinalPrice * qty).toFixed(2)}</p>
           <button class="move-to-cart">Move to Cart</button>
           <button class="remove-from-wishlist">Remove</button>
         </div>

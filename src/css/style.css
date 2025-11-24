@@ -33,6 +33,7 @@ img {
 header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem;
 }
 
@@ -116,22 +117,28 @@ button {
 
 /* End utility classes */
 
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* Cart icon styles */
-.cart {
+.cart , .wishlist {
   padding-top: 1em;
   position: relative;
   text-align: center;
 }
 
-.cart svg {
+.cart svg , .wishlist svg{
   width: 25px;
 }
 
-.cart:hover svg {
+.cart:hover svg , .wishlist:hover svg {
   fill: gray;
 }
 
-.cart-count {
+.cart-count, .wishlist-count {
   position: absolute;
   top: 0.1rem;
   right: 0.1rem;
@@ -146,7 +153,7 @@ button {
   text-align: center;
 }
 
-.cart-count[hidden] {
+.cart-count[hidden],  .wishlist-count[hidden] {
   display: none;
 }
 
@@ -471,4 +478,81 @@ footer {
 
 #orden-summary li {
   margin-bottom: 0.5rem;
+}
+
+/*wishlist */
+.wishlist-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Wishlist item card */
+.wishlist-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wishlist-item:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Product image */
+.wishlist-item img {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Product title and price */
+.wishlist-item p {
+  text-align: center;
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Buttons */
+.wishlist-item button {
+  margin-top: 2rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0.25rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.wishlist-item button.move-to-cart {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.wishlist-item button.move-to-cart:hover {
+  background-color: #45a049;
+}
+
+.wishlist-item button.remove-from-wishlist {
+  background-color: #f44336;
+  color: white;
+}
+
+.wishlist-item button.remove-from-wishlist:hover {
+  background-color: #d32f2f;
+}
+
+/* Empty state */
+.wishlist-container p {
+  grid-column: 1/-1;
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
 }

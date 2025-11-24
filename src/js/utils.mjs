@@ -64,3 +64,25 @@ export async function loadHeaderFooter() {
 
   document.dispatchEvent(new Event("headerLoaded"));
 }
+
+
+export function alertMessage(message, scroll=true){
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+
+  alert.innerHTML = `
+  <p>${message}</p>
+  <buttom class="alert-btn>X<buttom>
+  `;
+
+  alert.addEventListener('click', function(e) {
+      if(e.target.classList.contains('alert-close')) {
+        main.removeChild(this);
+      }
+  })
+  // add the alert to the top of main
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  if(scroll)
+    window.scrollTo(0,0);
+}

@@ -1,4 +1,7 @@
-import { CART_KEY, getCartCount as getStoredCartCount } from "./cartStorage.mjs";
+import {
+  CART_KEY,
+  getCartCount as getStoredCartCount,
+} from "./cartStorage.mjs";
 
 const BADGE_SELECTOR = "[data-cart-count]";
 
@@ -49,7 +52,7 @@ export function notifyCartCountChange() {
 
 initCartCountBadge();
 
-// wait the header :) 
+// wait the header :)
 document.addEventListener("headerLoaded", () => {
   updateCartCountBadge();
 });

@@ -1,5 +1,10 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import { getCartItems, removeCartItem as removeCartItemFromStorage, updateCartItemQuantity , saveCartItems} from "./cartStorage.mjs";
+import {
+  getCartItems,
+  removeCartItem as removeCartItemFromStorage,
+  updateCartItemQuantity,
+  saveCartItems,
+} from "./cartStorage.mjs";
 import { notifyCartCountChange } from "./cartCount.js";
 
 // team activity -- part 11

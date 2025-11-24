@@ -19,7 +19,6 @@ document.querySelector("#zipCode").addEventListener("change", () => {
   checkout.calculateTotal();
 });
 
-
 function renderCheckoutItems() {
   const items = getLocalStorage("so-cart") || [];
   const listElement = document.querySelector("#checkout-items");
@@ -39,19 +38,21 @@ function renderCheckoutItems() {
     .join("");
 }
 
-document.querySelector('#checkoutBtnForm').addEventListener('click', async (e) => {
-  e.preventDefault();
+document
+  .querySelector("#checkoutBtnForm")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
 
-  const myForm = document.forms[0];
-  const isValid = myForm.checkValidity();
-  myForm.reportValidity();
+    const myForm = document.forms[0];
+    const isValid = myForm.checkValidity();
+    myForm.reportValidity();
 
-  if (isValid) {
-    try {
-      await checkout.checkout(e, myForm);
-      alertMessage("Order submitted successfully!");
-    } catch (error) {
-      alertMessage("There was a problem: " + error.message);
+    if (isValid) {
+      try {
+        await checkout.checkout(e, myForm);
+        alertMessage("Order submitted successfully!");
+      } catch (error) {
+        alertMessage("There was a problem: " + error.message);
+      }
     }
-  }
-});
+  });
